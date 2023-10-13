@@ -53,7 +53,7 @@ devDependencies:
     specifier: ^8.19.0
     version: 8.51.0
   husky:
-    specifier: ^8.0.3
+    specifier: ^8.0.0
     version: 8.0.3
   jest:
     specifier: ^29.2.1
