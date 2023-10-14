@@ -10,6 +10,7 @@ import ListItemProduct from './ListItem';
 import AddItemScreen from '../screens/AddItem';
 import {Image} from 'react-native';
 import {useProductStore} from '../lib/zustand';
+import FinalScreen from '../screens/Final';
 
 const Stack = createNativeStackNavigator();
 const PlusIcon = props => <Icon {...props} name="plus-outline" />;
@@ -93,6 +94,13 @@ export const AppNavigator = () => (
         />
         <Stack.Screen name="Pagamento" component={PagamentoScreen} />
         <Stack.Screen name="Checkout" component={CheckoutScreen} />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Final"
+          component={FinalScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   </SafeAreaProvider>
