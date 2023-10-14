@@ -1,13 +1,13 @@
 import {create} from 'zustand';
-
-export const useBearStore = create(set => ({
-  bears: 0,
-  increasePopulation: () => set(state => ({bears: state.bears + 1})),
-  removeAllBears: () => set({bears: 0}),
-}));
+import {mockProducts} from '../mock/products';
 
 export const useProductStore = create(set => ({
-  products: [],
+  products: mockProducts,
+  fetch: async () => {
+    const response = await fetch('http://192.168.1.106:3000/products');
+    const {items} = await response.json();
+    set({products: items});
+  },
   addProduct: (id, title, price, quantity) => {
     set(state => ({
       products: [
@@ -21,29 +21,29 @@ export const useProductStore = create(set => ({
       ],
     }));
   },
-  removeTodo: id => {
-    set(state => ({
-      products: state.products.filter(product => product.id !== id),
-    }));
-  },
   eraseAll: () => {
     set(() => ({
       products: [],
     }));
   },
-  decreaseQuantity: id => {
+  cleanAll: () => {
+    set(() => ({
+      products: mockProducts,
+    }));
+  },
+  decreaseQuantity: serial => {
     set(state => ({
       products: state.products.map(product =>
-        product.id === id
+        product.serial === serial
           ? {...product, quantity: product.quantity - 1}
           : product,
       ),
     }));
   },
-  increaseQuantity: id => {
+  increaseQuantity: serial => {
     set(state => ({
       products: state.products.map(product =>
-        product.id === id
+        product.serial === serial
           ? {...product, quantity: product.quantity + 1}
           : product,
       ),

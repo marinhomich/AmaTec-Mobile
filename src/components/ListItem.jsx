@@ -23,20 +23,28 @@ export default function ListItemProduct({data, navigation}) {
         <ListItem
           onPress={() =>
             navigation.navigate('Produto', {
-              itemId: index,
-              itemName: item.title,
+              itemId: item.serial,
+              itemName: item.name,
             })
           }
-          title={`${item.title}`}
+          title={`${item.name}`}
           description={`R$${item.price}`}
-          accessoryLeft={() => (
-            <Avatar
-              shape="square"
-              source={{
-                uri: 'https://imgnike-a.akamaihd.net/768x768/024108BP.jpg',
-              }}
-            />
-          )}
+          accessoryLeft={() => {
+            const images = {
+              arroz: require('../assets/products/arroz.png'),
+              feijão: require('../assets/products/feijão.png'),
+              'coca-cola': require('../assets/products/coca-cola.png'),
+              nescau: require('../assets/products/nescau.png'),
+              café: require('../assets/products/café.png'),
+            };
+            return (
+              <Avatar
+                shape="square"
+                source={images[item.name]}
+                // source={require('../assets/products/coca-cola.png')}
+              />
+            );
+          }}
           accessoryRight={() => (
             <View
               style={{
@@ -49,7 +57,7 @@ export default function ListItemProduct({data, navigation}) {
                 style={{borderRadius: 16, paddingHorizontal: 0}}
                 size="tiny"
                 accessoryLeft={MinusIcon}
-                onPress={() => decreaseQuantity(item.id)}
+                onPress={() => decreaseQuantity(item.serial)}
               />
 
               <Text>{item.quantity}</Text>
@@ -57,7 +65,7 @@ export default function ListItemProduct({data, navigation}) {
                 style={{borderRadius: 16, paddingHorizontal: 0}}
                 size="tiny"
                 accessoryLeft={PlusIcon}
-                onPress={() => increaseQuantity(item.id)}
+                onPress={() => increaseQuantity(item.serial)}
               />
             </View>
           )}

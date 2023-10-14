@@ -1,25 +1,21 @@
-import {Layout, Spinner, Text} from '@ui-kitten/components';
+import {Icon, Layout, Text} from '@ui-kitten/components';
 import {useEffect} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {useProductStore} from '../lib/zustand';
-import Message from '../components/Message';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
 export default function FinalScreen({navigation}) {
-  const {addProduct, eraseAll} = useProductStore();
+  const {cleanAll} = useProductStore();
   const resOk = true;
-  // useEffect(
-  //   () =>
-  //     setTimeout(() => {
-  //       if (resOk) {
-  //         navigation.goBack();
-  //       } else {
-  //         alert('Sucesso');
-  //       }
-  //       // navigation.navigate('Home');
-  //       // eraseAll();
-  //     }, 2000),
-  //   [],
-  // );
+  const CheckIcon = () => <Icon name="checkmark-circle-outline" />;
+
+  useEffect(
+    () =>
+      setTimeout(() => {
+        cleanAll();
+        navigation.popToTop();
+      }, 3000),
+    [],
+  );
 
   return (
     <Layout
@@ -28,10 +24,9 @@ export default function FinalScreen({navigation}) {
         {backgroundColor: resOk ? 'green' : 'red'},
       ]}>
       <View style={styles.alertBox}>
-        <Text style={styles.alertText}>123</Text>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.closeButton}>Close</Text>
-        </TouchableOpacity>
+        <Text category="h1" style={styles.alertText}>
+          Pagamento Efetuado com Sucesso!
+        </Text>
       </View>
     </Layout>
   );

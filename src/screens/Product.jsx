@@ -4,27 +4,25 @@ import {ImageBackground, ScrollView} from 'react-native';
 
 export default ({navigation}) => {
   const styles = useStyleSheet(themedStyles);
-
+  // serial: '765489765',
+  // name: 'arroz',
+  // description: 'arroz 100% integral',
+  // quantity: 0,
+  // price: 3.99,
   return (
     <ScrollView style={styles.scrollView}>
       <ImageBackground
         style={styles.image}
-        source={{
-          uri: 'https://imgnike-a.akamaihd.net/768x768/024108BP.jpg',
-        }}
+        source={require('../assets/products/arroz.png')}
       />
       <Layout style={styles.detailsContainer} level="1">
-        <Text category="h6">Tênis Nike Air Max 90 GTX Masculino</Text>
+        <Text category="h6">Arroz</Text>
         <Text appearance="hint" category="p2">
-          Casual
+          765489765
         </Text>
-        <Text category="h4">R$ 819,99</Text>
+        <Text category="h4">R$ 3,99</Text>
         <Text style={styles.description} appearance="hint">
-          Projetado para manter você se divertindo quando a chuva começa, o Nike
-          Air Max 90 GTX oferece uma versão à prova d'água do tênis de corrida
-          campeão que ajudou a definir os anos 90. Com certeza é uma edição
-          cobiçada, seu design testado e comprovado recebe um cabedal GORE-TEX
-          para que você possa dar um mergulho sem se molhar.
+          Arroz 100% integral
         </Text>
       </Layout>
     </ScrollView>
