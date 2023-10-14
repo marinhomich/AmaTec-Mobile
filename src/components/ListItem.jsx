@@ -8,11 +8,14 @@ import {
 } from '@ui-kitten/components';
 import React from 'react';
 import {View} from 'react-native';
+import {useProductStore} from '../lib/zustand';
 
 const PlusIcon = props => <Icon {...props} name="plus-outline" />;
 const MinusIcon = props => <Icon {...props} name="minus-outline" />;
 
 export default function ListItemProduct({data, navigation}) {
+  const {decreaseQuantity, increaseQuantity} = useProductStore();
+
   return (
     <List
       data={data}
@@ -42,9 +45,11 @@ export default function ListItemProduct({data, navigation}) {
                 alignItems: 'center',
               }}>
               <Button
+                disabled={item.quantity === 0}
                 style={{borderRadius: 16, paddingHorizontal: 0}}
                 size="tiny"
                 accessoryLeft={MinusIcon}
+                onPress={() => decreaseQuantity(item.id)}
               />
 
               <Text>{item.quantity}</Text>
@@ -52,6 +57,7 @@ export default function ListItemProduct({data, navigation}) {
                 style={{borderRadius: 16, paddingHorizontal: 0}}
                 size="tiny"
                 accessoryLeft={PlusIcon}
+                onPress={() => increaseQuantity(item.id)}
               />
             </View>
           )}

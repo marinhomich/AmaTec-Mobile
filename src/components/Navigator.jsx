@@ -8,25 +8,23 @@ import PagamentoScreen from '../screens/Pagamento';
 import ProductScreen from '../screens/Product';
 import ListItemProduct from './ListItem';
 import AddItemScreen from '../screens/AddItem';
+import {Image} from 'react-native';
+import {useProductStore} from '../lib/zustand';
 
 const Stack = createNativeStackNavigator();
 const PlusIcon = props => <Icon {...props} name="plus-outline" />;
 
 function HomeScreen({navigation}) {
-  const data = new Array(0).fill({
-    title: 'Title for Item',
-    price: 10,
-    quantity: 1,
-  });
+  const {products} = useProductStore();
 
-  const sum = data.reduce((accumulator, object) => {
-    return accumulator + object.price;
+  const sum = products.reduce((sum, object) => {
+    return sum + object.price * object.quantity;
   }, 0);
   return (
     <Layout style={{flex: 1}}>
-      {data.length ? (
+      {products.length ? (
         <>
-          <ListItemProduct data={data} navigation={navigation} />
+          <ListItemProduct data={products} navigation={navigation} />
           <Layout
             style={{
               flexDirection: 'row',
@@ -62,6 +60,12 @@ export const AppNavigator = () => (
         <Stack.Screen
           name="Home"
           options={({navigation}) => ({
+            headerTitle: props => (
+              <Image
+                source={require('../assets/logos/logo.png')}
+                style={{width: 90, height: 20}}
+              />
+            ),
             headerRight: props => (
               <Button
                 onPress={() => navigation.navigate('AddItem')}
@@ -74,7 +78,11 @@ export const AppNavigator = () => (
           })}
           component={HomeScreen}
         />
-        <Stack.Screen name="AddItem" component={AddItemScreen} />
+        <Stack.Screen
+          name="AddItem"
+          options={{title: 'Adicionar Produto'}}
+          component={AddItemScreen}
+        />
 
         <Stack.Screen
           options={({route}) => ({
