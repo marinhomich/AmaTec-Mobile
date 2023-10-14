@@ -1,14 +1,10 @@
-import {Button, Layout, Text} from '@ui-kitten/components';
-import {useBearStore} from '../lib/zustand';
+import {Button, Layout} from '@ui-kitten/components';
 
 export default function PagamentoScreen({navigation}) {
-  const bears = useBearStore(state => state.bears);
-  const increasePopulation = useBearStore(state => state.increasePopulation);
   return (
     <Layout style={{flex: 1}}>
-      <Text>{bears}</Text>
       <Button
-        onPress={increasePopulation}
+        disabled
         style={{marginHorizontal: 16, marginVertical: 6}}
         size="giant">
         Crédito
